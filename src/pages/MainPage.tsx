@@ -4,7 +4,6 @@ import {useAppDispatch, useAppSelector} from "../store";
 import {useNavigate} from "react-router-dom";
 import {loadUsers} from "../store/thunks/user";
 import {loadOrders} from "../store/thunks/order";
-import {format, parse} from 'date-fns'
 
 export const MainPage: FC = () => {
     const user = useAppSelector(state => state.user.user)

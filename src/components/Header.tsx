@@ -1,15 +1,8 @@
 import React, {FC} from 'react';
 import {Container, Dropdown, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
-import styled from "styled-components";
 import {useAppDispatch, useAppSelector} from "../store";
 import {logoutUser} from "../store/thunks/user";
-
-const StyledBrand = styled(Navbar.Brand)`
-  &:hover {
-    cursor: pointer;
-  }
-`
 
 export const Header: FC = () => {
     const user = useAppSelector(state => state.user.user)
@@ -27,7 +20,7 @@ export const Header: FC = () => {
 
     return (
         <Navbar className='px-5' bg="dark" variant="dark">
-            <StyledBrand onClick={() => navigate('/')}>CRM-Diplom</StyledBrand>
+            <Navbar.Brand onClick={() => navigate('/')}>CRM-Diplom</Navbar.Brand>
             {user ? (
                 <>
                     <Nav className="me-auto">

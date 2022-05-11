@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import {LoginPage} from "./pages/LoginPage";
 import {MainPage} from "./pages/MainPage";
-import styled from "styled-components";
 import {Header} from "./components/Header";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Container} from "react-bootstrap";
@@ -12,14 +11,6 @@ import {UserPage} from "./pages/UserPage";
 import {useAppDispatch} from "./store";
 import {loadUser} from "./store/thunks/user";
 
-const Wrapper = styled.div`
-  min-height: 100vh;
-  background-color: #ebeff5;
-`
-
-const MainBlock = styled(Container)`
-`
-
 function App() {
     const dispatch = useAppDispatch();
 
@@ -28,9 +19,9 @@ function App() {
     }, [])
 
   return (
-      <Wrapper>
+      <div className='wrapper'>
             <Header />
-          <MainBlock className='px-5' fluid={true}>
+          <Container className='px-5' fluid={true}>
               <Routes>
                   <Route path='' element={<MainPage />} />
                   <Route path='/login' element={<LoginPage />} />
@@ -39,8 +30,8 @@ function App() {
                   <Route path='/user/:id' element={<UserPage />} />
                   <Route path='*' element={<Navigate replace to='' />} />
               </Routes>
-          </MainBlock>
-      </Wrapper>
+          </Container>
+      </div>
   );
 }
 
