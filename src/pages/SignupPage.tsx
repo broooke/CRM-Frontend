@@ -3,6 +3,7 @@ import {Alert, Button, Card, Col, Container, Form, Row} from "react-bootstrap";
 import {useAppDispatch, useAppSelector} from "../store";
 import {signupUser} from "../store/thunks/user";
 import {useNavigate} from "react-router-dom";
+import Reaptcha from "reaptcha";
 
 export const SignupPage: FC = () => {
     const [email, setEmail] = useState('');
@@ -15,6 +16,7 @@ export const SignupPage: FC = () => {
     const user = useAppSelector(state => state.user.user)
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const [verify, setVerify] = useState(false)
 
     useEffect(() => {
         if (user) {
@@ -24,6 +26,7 @@ export const SignupPage: FC = () => {
 
     const submitHandler = (e: SyntheticEvent) => {
         e.preventDefault();
+        if (!verify) return;
         if (password !== confirmPassword) {
             setHasError(true)
             return
@@ -36,6 +39,10 @@ export const SignupPage: FC = () => {
             phone,
             password
         }))
+    }
+
+    const onVerify = (recaptchaResponse: any) => {
+        setVerify(true)
     }
 
     return (
@@ -112,7 +119,10 @@ export const SignupPage: FC = () => {
                                         placeholder="Введите пароль повторно..."
                                     />
                                 </Form.Group>
-
+                                <Reaptcha
+                                    sitekey='6LfBEbwfAAAAAH0-QjGme5Rnfgc7XRAwGu9v1Y4i'
+                                    onVerify={onVerify}
+                                />
                                 <div className="d-grid gap-2">
                                     <Button variant="primary" type="submit">
                                         Войти
